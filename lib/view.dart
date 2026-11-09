@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'model.dart';
 import 'view_model.dart';
 
-final names = ['📝 未着手 (To Do)', '🔨 作業中 (Doing)', '✅ 完了 (Done)'];
-final labels = ['未着手', '作業中', '完了'];
+final names = ['📚 読みたい', '📖 読んでいる', '✅ 読了'];
+final labels = ['読みたい', '読んでいる', '読了'];
 final colors = [
-  Colors.blue.shade50,
-  Colors.orange.shade50,
-  Colors.green.shade50,
+  Colors.purple.shade50,
+  Colors.amber.shade50,
+  Colors.teal.shade50,
 ];
 
 class KanbanView extends StatefulWidget {
@@ -31,7 +31,7 @@ class _KanbanViewState extends State<KanbanView> {
     final result = await showDialog<String>(
       context: context,
       builder: (c) => AlertDialog(
-        title: const Text('タスクを編集'),
+        title: const Text('本のタイトルを編集'),
         content: TextFormField(
           initialValue: text,
           autofocus: true,
@@ -98,7 +98,7 @@ class _KanbanViewState extends State<KanbanView> {
         color: colors[s],
         child: Column(
           children: [
-            ListTile(title: Text(names[s]), trailing: Text('${cards.length}件')),
+            ListTile(title: Text(names[s]), trailing: Text('${cards.length}冊')),
             Expanded(child: ListView(children: cards)),
           ],
         ),
@@ -117,8 +117,8 @@ class _KanbanViewState extends State<KanbanView> {
     final field = TextField(
       controller: input,
       decoration: const InputDecoration(
-        labelText: '新しいタスク',
-        hintText: '例：レポートを書く',
+        labelText: '本のタイトル',
+        hintText: '例：吾輩は猫である',
         border: OutlineInputBorder(),
       ),
     );
@@ -127,7 +127,7 @@ class _KanbanViewState extends State<KanbanView> {
       builder: (context, value, child) => FilledButton.icon(
         onPressed: value.text.isEmpty ? null : add,
         icon: const Icon(Icons.add),
-        label: const Text('未着手に追加'),
+        label: const Text('読みたい本に追加'),
       ),
     );
     final entry = Card(
@@ -149,7 +149,7 @@ class _KanbanViewState extends State<KanbanView> {
       ),
     );
     return Scaffold(
-      appBar: AppBar(title: const Text('📋 Kanban')),
+      appBar: AppBar(title: const Text('📚 わたしの読書記録')),
       body: Column(
         children: [
           entry,
